@@ -4,7 +4,6 @@ import ArgumentParser
 import Foundation
 import SwiftFormat
 
-@main
 struct Format: ParsableCommand {
     @Option(help: "Path to a configuration file containing rules and options")
     var config: String?

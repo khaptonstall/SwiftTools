@@ -61,11 +61,10 @@ final class SwiftFormat {
             arguments.append("--quiet")
         }
 
-        let exitCode = CLI.run(
+        _ = CLI.run(
             in: currentDirectory.path(),
             with: arguments
         )
-        exit(exitCode.rawValue)
     }
 
     // MARK: Config File
