@@ -61,9 +61,6 @@ final class SwiftFormat {
             arguments.append("--quiet")
         }
 
-        print("Running in \(currentDirectory.path())")
-        print("Command:")
-        print("\(arguments.joined(separator: " "))")
         _ = CLI.run(
             in: currentDirectory.path(),
             with: arguments
