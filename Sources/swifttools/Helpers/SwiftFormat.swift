@@ -23,6 +23,7 @@ final class SwiftFormat {
     func run(
         configFilePath: String? = nil,
         swiftVersion: String? = nil,
+        stagedFilesOnly: Bool = false,
         dryRun: Bool = false,
         verbose: Bool = false,
         quiet: Bool = false
@@ -31,10 +32,8 @@ final class SwiftFormat {
             return
         }
 
-        var arguments: [String] = [
-            commandArgument,
-            "./", // Format all (non-excluded) files in the working directory
-        ]
+        var arguments: [String] = [commandArgument]
+        try arguments.append(contentsOf: filesToFormat(stagedFilesOnly: stagedFilesOnly))
 
         let configFilePath = try configFilePath ?? pathForConfigFile()
         arguments.append(contentsOf: ["--config", configFilePath])
@@ -65,6 +64,19 @@ final class SwiftFormat {
             in: currentDirectory.path(),
             with: arguments
         )
+    }
+
+    // MARK: File Inputs
+
+    private func filesToFormat(stagedFilesOnly: Bool) throws -> [String] {
+        guard stagedFilesOnly else {
+            return ["./"] // Format all (non-excluded) files in the working directory
+        }
+
+        // --name-only: Shows the names of the files vs the actual diff
+        // grep '\\.swift$': Filter output to only include .swift files
+        let stagedFilePaths = try Shell.bash.run("git diff --staged --name-only | grep '\\.swift$'")
+        return stagedFilePaths.split(separator: "\n").map { String($0) }
     }
 
     // MARK: Config File

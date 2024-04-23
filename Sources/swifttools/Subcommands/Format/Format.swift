@@ -11,6 +11,9 @@ struct Format: ParsableCommand {
     @Option(name: .customLong("swiftversion"), help: "The version of Swift used in the files being formatted")
     var swiftVersion: String?
 
+    @Flag(name: .customLong("stagedfilesonly"), help: "Only format files staged by git")
+    var stagedFilesOnly: Bool = false
+
     @Flag(name: .customLong("dryrun"), help: "Run in 'dry' mode (without actually changing any files)")
     var dryRun: Bool = false
 
@@ -25,6 +28,7 @@ struct Format: ParsableCommand {
         try swiftFormat.run(
             configFilePath: config,
             swiftVersion: swiftVersion,
+            stagedFilesOnly: stagedFilesOnly,
             dryRun: dryRun,
             verbose: verbose,
             quiet: quiet

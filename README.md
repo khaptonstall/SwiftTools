@@ -27,6 +27,12 @@ To run `format` using the default configuration file against the entire working 
 mint run swifttools format
 ```
 
+#### Formatting Staged Files Only
+If you'd like to limit formatting to only include files which are currently staged by git (which can be useful as a pre-commit githook), pass the `--stagedfilesonly` flag:
+```bash
+mint run swifttools format --stagedfilesonly
+```
+
 #### Custom Configuration
 To override the default `swiftformat` configuration settings, you have the following options:
 
