@@ -12,7 +12,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", exact: "1.3.1"),
-        .package(url: "https://github.com/nicklockwood/SwiftFormat", exact: "0.53.6"),
+        .package(url: "https://github.com/nicklockwood/SwiftFormat", exact: "0.54.3"),
     ],
     targets: [
         .executableTarget(
